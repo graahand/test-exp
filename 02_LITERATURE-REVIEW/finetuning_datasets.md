@@ -48,21 +48,21 @@ format: problem statement....reasoning......final answer.
 1. GSM8K contains 8500 grade school maths problem including basic arithmetic through pre-algebra. 
 
 
-2. [hendrycks/competition_math]()
+2. [hendrycks/competition_math](taken down)
 
  12,500 competition-level problems (algebra, theory, calculus and number theory)
 
  ### Conversational Assistant Datasets
 
-1. PersonaChat [bavard/personachat_truecased]()
+1. PersonaChat [bavard/personachat_truecased](https://huggingface.co/datasets/bavard/personachat_truecased)
         Contains 160k dialogue with personality traits. good for **human-like engagement patterns training objective.**
-2. Empathetic dialogues [empathetic_dialogues]()
+2. Empathetic dialogues [empathetic_dialogues](discarded)
 
     25k conversations
 
     for emotional understanding and assistant like behavior development. 
 
-3. BlenderBot3-Dialog [facebook/blended_skill_talk]()
+3. BlenderBot3-Dialog [facebook/blended_skill_talk](https://www.kaggle.com/datasets/thedevastator/multi-modal-conversation-data)
     
     76k conversations
     knowlege, empathy, personality and consistency. 
@@ -70,12 +70,12 @@ format: problem statement....reasoning......final answer.
 
 ### Specific Assistant Behavior Datasets
 
-1. Assistant Conversations by Anthropic [Anthropic/hh-rlhf]()
+1. Assistant Conversations by Anthropic [Anthropic/hh-rlhf](https://huggingface.co/datasets/Anthropic/hh-rlhf)
 
     161k human-assitant dialogues. 
     helpful, harmless and honest response, RLHF-ready format. 
 
-2. OpenAssistant Conversations 
+2. OpenAssistant Conversations [OpenAssistant/oasst1](https://huggingface.co/datasets/OpenAssistant/oasst1)
 
     161k human-generated conversations. 
     include multiple languages (might contain nepali as well)
@@ -83,4 +83,5 @@ format: problem statement....reasoning......final answer.
 
 ### Nepali TTS Development
 
-    OpenSLR Nepali [openslr.org/43/]()
+    OpenSLR Nepali [openslr/43](https://openslr.org/43/)
+   
