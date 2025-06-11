@@ -123,3 +123,20 @@ and improper cross-validation and its repeated use during hyperparameter tuning.
 information from test fold influence the training process of the model causing data leakage. 
 
 
+
+## Mixture of Experts
+    a machine learning architecture where llm is divided into multiple networks called experts and the **gated network** dynamically selects and routes input to one or few relevant experts. 
+
+    Models like Mixtral-8x7b, Youtube Recommendation system, Z-code, Switch Transformer are based on MOE. 
+
+
+    Different modes or methods of MOE are Top-k routing, 
+    top-1 routing (only one exper per input token), 
+    expert choice routing (expert decides which input they can handle best), 
+    sparse activation/routing (only subset of experts are activated)
+
+    **Capacity factor** is the hyperparameter that influences how many tokens each expert can handle during training and inference. 
+
+
+    
+
