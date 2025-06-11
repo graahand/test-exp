@@ -36,3 +36,21 @@ she is looking for a candidate with strong **maths skills (calculus, probs, line
 
 her notable works are listed in this link: [Grace Hui Yang Google Scholar](https://scholar.google.com/citations?user=nafo_HAAAAAJ)
 
+
+
+I found the most useful paper for my usecase as well (EchoRobot) where she published her work on **conversational agents that understand** the user's need and interacts naturally and effectively. 
+
+
+She also pioneered the **question answering method for multimedia content(news, videos, text)**
+
+*effective searching and sorting, search engines and search mechanisms, reinforcement learning for information retrieval, anonymization techniques for privacy IR*
+
+
+
+### [Towards human centric conversational agents](https://arxiv.org/pdf/2404.12670)
+
+
+#### Literature Review
+[[h_yang_paper1]]
+
+
