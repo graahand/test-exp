@@ -85,3 +85,41 @@ format: problem statement....reasoning......final answer.
 
     OpenSLR Nepali [openslr/43](https://openslr.org/43/)
    
+
+
+   ## Can we finetune a vision language model on Maths Dataset/pictures?
+
+### InternLM-Math [internlm/internlm2-math-plus-7b](https://huggingface.co/internlm/internlm2-math-plus-7b)
+
+7b and 20b models which are pre-trained with ~100B math-related tokens and *SFT* with
+~2M bilingual math supervised data. 
+
+{{minhash and exact number match used for decontaminate possible test set leakage.}}
+
+InternLM-Math is solver, prover, verifier and augmentor. 
+
+It was evaluated for formal math reasoning with this evaluation set [MiniF2F-test](https://github.com/openai/miniF2F)
+
+the dataset contains maths problems (theorem proving) from olympiads as well as high-school and undergraduate maths classes. 
+
+
+In informal maths reasoning MATH, MATH-Python and GSM8K are used as evaluation set. 
+
+InternLM-Math-7b performance: **34.6, 50.9, 78.1**
+
+the 7b model outperforms the deepseek-7b-rl model 
+
+
+InternLM-Math will be combined with Lean 3 (for theorem proving and maths problem solving). 
+
+[Lean 3](https://lean-lang.org/doc/reference/latest/Elaboration-and-Compilation/) is a interactive theorem prover and functional programming language  based on dependent kernel theory which means types can depend on terms, enabling expressive formalization of mathematics and programs
+
+#### How does test-set leakage happens?
+
+future data used for training in time series. 
+
+and improper cross-validation and its repeated use during hyperparameter tuning. 
+
+information from test fold influence the training process of the model causing data leakage. 
+
+
