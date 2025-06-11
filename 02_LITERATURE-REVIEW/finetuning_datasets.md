@@ -23,6 +23,8 @@ qlora 4-bit quantization for 7b models and standard lora for 3b models.
 
 [Alpaca-52k ](https://huggingface.co/datasets/tatsu-lab/alpaca)
 
+alpaca is the format for **single turn conversation type dataset.**
+
 its can be used for general reasoning and creative writing with  4-6 hours of training 3b model. 
 
 [Ultrachat-200k](https://huggingface.co/datasets/HuggingFaceH4/ultrachat_200k)
@@ -138,5 +140,59 @@ information from test fold influence the training process of the model causing d
     **Capacity factor** is the hyperparameter that influences how many tokens each expert can handle during training and inference. 
 
 
-    
+## Xtuner by InternLM
 
+a finetuning toolkit for large language models, it can finetune the 7b models within 8GB V-RAM. 
+
+Supported models are **internlm, mixtral, llama and qwen**. 
+
+QLORA can be used for finetuning InternLM with publicly available datasets. 
+
+For example
+```xtuner train internlm_7b_qlora_oasst_e3```
+
+**Python3.10 support**
+```conda create -n xtuner_env python=3.10```
+``` pip install -U xtuner```
+
+*Deepspeed* module not found. && 
+
+can be installed with ```pip install deepspeed```
+
+encountered another issue
+
+{{ raise MissingCUDAException("CUDA_HOME does not exist, unable to compile CUDA op(s)")
+      op_builder.builder.MissingCUDAException: CUDA_HOME does not exist, unable to compile CUDA op(s)
+      [end of output]}}
+
+
+Above error encountered due to lack of CUDA Compiler, PyTorch install the CUDA runtime but *nvcc --version* checks whether the CUDA compiler is installe or not. 
+
+### [CUDA Compiler Installation](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/#ubuntu-installation)
+
+1. ```wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb```
+
+2. ```sudo dpkg -i cuda-keyring_1.1-1_all.deb```
+
+3. ``` sudo apt install cuda-toolkit -y```
+4. ``` sudo apt install nvidia-gds```
+5. ``` reboot ```
+
+
+Or
+
+1. ```sudo apt install nvidia-cuda-toolkit``` in Ubuntu 24.04.2 LTS. 
+
+
+
+{{}}
+
+
+### What is Nvidia GDS packages?
+
+means GPU direct Storage, that enables bypassing the CPU for data path. 
+It allow **direct memory access (DMA) transfers between GPU and Storage devices**
+
+
+
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
