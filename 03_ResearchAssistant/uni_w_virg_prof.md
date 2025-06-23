@@ -13,6 +13,15 @@
 
 ######################################################################################
 
+# professors from different US universities accepting PhD students
+
+
+1. [Andrew Owens, University of Michigan](https://andrewowens.com/) (hiring, multimodal learning, image forensics, learning from video)
+
+2. [Svetlana lazebnik, University of Illinois at Urbana-Champaign](https://slazebni.cs.illinois.edu/) (no hiring, need to reach out, {scene understanding, visual recognition, images and text joint modelling})[slazebni -at- illinois.edu]
+
+3. [Sanja (Sania) Fidler, University of Toronto](https://www.cs.utoronto.ca/~fidler/index.html)(hiring MSc/PhD students, {intersection of computer vision and graphics, 3d vision, 3d reconstruction and interactive methods for image annotation}){{ fidler at cs dot toronto dot edu}}
+
 
 
 
