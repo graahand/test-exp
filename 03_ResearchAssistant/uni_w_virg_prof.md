@@ -9,7 +9,7 @@
 
 4. [Gianfranco Doretto/Vision and Learning Lab](https://vision.csee.wvu.edu/) (need to reach out/email to know more about hiring but applicantss from wride range of backgrounds  are welcomed, {deep learning for biometrics, biomedical imaging and robotics})
 
-5.[Amr El-Wakeel/iCPS Lab](https://sites.google.com/site/amrselwakeel/home?authuser=0) (need to email, one nepali student from  purwanchal university {{[Rukesh Prajapati](https://www.linkedin.com/in/rukesh-prajapati-611161186/)}} is also working with him, {robotics, computer vision and sensor fusion, cars/drones})
+5. [Amr El-Wakeel/iCPS Lab](https://sites.google.com/site/amrselwakeel/home?authuser=0) (need to email, one nepali student from  purwanchal university {{[Rukesh Prajapati](https://www.linkedin.com/in/rukesh-prajapati-611161186/)}} is also working with him, {robotics, computer vision and sensor fusion, cars/drones})
 
 ######################################################################################
 
