@@ -24,6 +24,12 @@
 
 
 
+########################################################################
+
+# professors outside US
+
+1. [Dr. Eliot Creager](https://ecreager.github.io/) (socially embedded machine intelligence, focuses on ai systems that promote user data autonomy, university of Waterloo, Canada, accepting MSc students(high fee), PhD requires Masters degree)
+
 
 
 
