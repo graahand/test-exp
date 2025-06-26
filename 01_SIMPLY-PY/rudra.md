@@ -12,3 +12,5 @@ project ideas
 5. resume parser with AI for smart and automated hiring (provides rating and matches for recruitment)
 
 6. 
+
+
