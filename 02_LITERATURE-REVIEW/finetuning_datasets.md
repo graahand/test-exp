@@ -161,7 +161,7 @@ can be installed with ```pip install deepspeed```
 
 encountered another issue
 
-{{ raise MissingCUDAException("CUDA_HOME does not exist, unable to compile CUDA op(s)")
+{{ raise MissingCUDqAException("CUDA_HOME does not exist, unable to compile CUDA op(s)")
       op_builder.builder.MissingCUDAException: CUDA_HOME does not exist, unable to compile CUDA op(s)
       [end of output]}}
 
