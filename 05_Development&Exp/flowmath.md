@@ -49,3 +49,5 @@ Model required for solving geometrical questions.
 
 
 
+qwen2.5-math-7b is good model and better than internlm2-math-plus-7b in terms of maths word problem not tested with latex questions related to calculus.
+
