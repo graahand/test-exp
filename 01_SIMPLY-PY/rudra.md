@@ -14,3 +14,4 @@ project ideas
 6. 
 
 
+a mobile app that list out all the parks in sydney, list out the infrastructures (benchs, washroom), user registration and login, user should be able to see nearby parks around them along with google maps attached for location. 
