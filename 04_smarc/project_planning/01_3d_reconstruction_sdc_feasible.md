@@ -55,6 +55,9 @@ then the skeleton (sparse point cloud) for the 3d construction is created throug
 
 
 now mesh construction is done with algorithms like *(delaunay tetrahedralization and poisson surface reconstruction), mesh is refined with techniques like *(edge collapse, vertex split, and mesh simplification) and final step is mesh texturing (photogrammetry, lambertian surfaces {surface that reflects light evenly in all direction (matte surface)}, but shiny (Non-lambertian surfaces might cause problems for mesh consturction and texturing process.))
+![mesh reconstruction for existing point cloud](image.png)
+![Mesh refinement](image-4.png)
+![Mesh texturing](image-5.png)
 
 
 
@@ -74,6 +77,10 @@ now mesh construction is done with algorithms like *(delaunay tetrahedralization
 
 [link to nerf research papers and work](https://github.com/awesome-NeRF/awesome-NeRF)
 [train a nerf with you images, google colab](https://colab.research.google.com/github/nerfstudio-project/nerfstudio/blob/main/colab/demo.ipynb#scrollTo=9oyLHl8QfYwP)
+[smerf](https://smerf-3d.github.io/#demos)
+[NeRF Hash Encoding](https://nvlabs.github.io/instant-ngp/)
+
+
 
 (neural explicit representation and neural implicit representation)
 
