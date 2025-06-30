@@ -44,13 +44,14 @@ feature mapping is the next step where similar points between different pictures
 
 then the skeleton (sparse point cloud) for the 3d construction is created through [structure from motion]. by extracting the camera position and orientation (camera pose) for each image, it provides the information about where the vehicle was and how it was facing wehn the image was captured. based on that the rays(lines) are created for construction initial skeleton
     (bundle adjustment is done to refine the 3d points and avoid any errors.)
-![sparse 3d point cloud/skeleton](project_planning/image-3.png)
+![sparse 3d point cloud/skeleton](image-3.png)
 
 
 [3d_reconstruction_sdc_feasibles](#depth-estimation-and-ed-reconstruction) sfm only creates a sparse point cloud which is further refined with dense point-cloud reconstruction step. depthmaps (each pixel in image tells how far away that part of scene is) are created in this step using machine learning algorithms or stereo vision (two camera capturing same thing like two eyes, those two images are essential for estimating depth and {disparity}). yo step ma depthmaps and sfm le deko sparse 3d points combine garerw dense cloud point banainxa. 
 
-![depthmap of initial image](project_planning/image-1.png)
-![dense cloud point 3d](project_planning/image-2.png)
+![depthmap of initial image](image-1.png)
+
+![dense cloud point 3d](image-2.png)
 
 
 now mesh construction is done with algorithms like *(delaunay tetrahedralization and poisson surface reconstruction), mesh is refined with techniques like *(edge collapse, vertex split, and mesh simplification) and final step is mesh texturing (photogrammetry, lambertian surfaces {surface that reflects light evenly in all direction (matte surface)}, but shiny (Non-lambertian surfaces might cause problems for mesh consturction and texturing process.))
