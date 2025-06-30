@@ -28,9 +28,9 @@
 
 5. [Maple lab, Vanderbilt university](https://vu-maple-lab.github.io/) (robotics surgeries, hiring,need to fill out this form [form](https://docs.google.com/forms/d/e/1FAIpQLScdzblyubqTlOyX6CJSRGBZBOopShcl4KFFw4Z8vp8qT1wFGQ/viewform)) check out the questions there and write their answers as well. 
 
-6. [ Palm lab, Anshuman Chhabra, University of South Florida](https://www.anshumanc.com/)(hiring phd students and remote interns in different research work related to generative AI, multimodal ai, ai/ml safety) his lab: 
+6. [ Palm lab, Anshuman Chhabra, University of South Florida](https://www.anshumanc.com/)(hiring phd students and remote interns in different research work related to generative AI, multimodal ai, ai/ml safety) his lab: {good fit, skimmed his work, seems low competition here with very less competitive students}
 
-7. [Alessio Gaspar, USF](http://cereal.forest.usf.edu/alessio/) (supervises masters,phd thesis, email him, evolutionary algorithms)
+7. [Alessio Gaspar, USF](http://cereal.forest.usf.edu/alessio/) (supervises masters,phd thesis, email him, evolutionary algorithms) [x] check out this work as well of one of his phd student: (https://www.linkedin.com/feed/update/urn:li:activity:7330604658387800067/)
 
 8. [Rare Lab, Prof. Zhao Han, Bellini College of Ai](https://therarelab.com/)(masters, phd options available but might be self-funded, research area focues on human computer interaction, ((artificial intelligence and augmented reality)))
 
