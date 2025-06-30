@@ -3,8 +3,12 @@
 this system is aims to identify design flaws using AI
 
 
-aspect ratio (ratio of height and width): done
-resolution (number of pixels in width and height): no problem
+aspect ratio (ratio of height and width): done ()
+resolution (number of pixels in width and height): no problem ()
+logo placement (WORKING A4)
+text/typo (text extract)
+blur detection (dekhauna layek)
+
 margin(space between the image/design edge and the last elements closest to the edge of the image/design)
 
 
@@ -28,6 +32,10 @@ color code for web usage and print usage (cmyk and rgb, no problem)
 6. font confirmation
 
 7. typos and grammar mistakes (gramformer, pyaspeller, python-language-tools, )
+
+
+
+1. logo 
 
 
 
