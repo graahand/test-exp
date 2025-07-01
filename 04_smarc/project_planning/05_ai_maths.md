@@ -84,5 +84,42 @@ testing locally with the integrated web ui will be next step towards its next ph
 
 
 
+### How ollama uses the model such that they can run easily on consumer hardware?
+
+ollama allow running any hugging face model as long as the model is available in GGUF format which means quantized. 
+
+Ollama is suitable for small-scale deployment (e.g., teams ≤5 users) but struggles with high-concurrency scenarios, where solutions like OpenLLM offer 8x higher throughput and lower latency.
+
+it can be done with this as well vLLM or Hugging Face Transformers with BitsAndBytes
+
+#### Quantized models in hugging face 
+
+*bnb-4bit*: 4-bit quantization implemented by bitsandbytes library. (good)
+*gguf*: model file format optimized for local inference with frameworks like ollama and llama.cpp. 
+*gptq-int4*: (generalized post-training quantization), a 4-bit quantization designed to preserve better accuracy than normal quantization. 
+*gptq-int8*:same as above but uses 8-bit integers for quantization. 
+*awq*:(adaptive weight quantization) new quantization, which adapts quantization parameters per weight group for better accuracy with 4-bit quantization. 
+*q4f16_1-mlc*: 40bit quantization and 16-bit floating points for some part. 
+
+*q5_k_m_gguf*: 5-bit quantization (k means quantization kernel), (m means mixed quantization)
+*q6_k-gguf*: (ollama supported)(excellent accuracy)
+*q4_k_m_gguf*: (good accuracy)(ollama supported)
+*q4_k_s_gguf*: 4-bit quantization (s for small)
+*q8_0-gguf*: 8-bit quantization without any schemes (0 means default quantization) (max accuracy,high usage ram)
+*i1_gguf*: 1-bit quantization with extreme compression level. 
+
+**Perplexity increase (PPL) is a measure of how much worse the quantized model predicts compared to the original FP16 model. For example, q6_k-gguf with +0.0044 PPL is almost indistinguishable from full precision.**
+(lower perplexity means better performance) [its a exponentiation of average negative log-likelihood of predicted tokens.]
+
+
+
+
+##### k-quantization / k-scheme
+
+The "K" refers to a quantization strategy that groups or clusters model weights into a limited set of representative values (sometimes called centroids), but it is not the same as k-means clustering. Instead, it is a specialized quantization approach designed for LLM weights.
+
+*the most important weights are quantized with higher precision, while less critical weights use lower precision.*
+
+*The "K" quantization uses different bit-width representations (e.g., 4-bit, 5-bit, 6-bit)*
 
 

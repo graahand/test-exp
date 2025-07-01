@@ -56,6 +56,10 @@ dataset should contain following:
 
 without finetuning and careful prompting, text extraction can be done, font classification is only possible with a trained CNN. logo placement done through algorithm and pre-defined criteria. 
 
-
+**model usage** [[05_ai_maths#How ollama uses the model such that they can run easily on consumer hardware?]]
 
 segmentation of any use? for blur detection?? 
+
+
+
+
