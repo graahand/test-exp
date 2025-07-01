@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portrait Slideshow - Continuous Flow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #slideshow-container {
+            position: relative;
+            width: 1920px;
+            height: 1080px;
+            background-image: url('/home/graahand/Documents/background_slide.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow: hidden;
+        }
+
+        .portrait-image {
+            position: absolute;
+            max-width: 300px;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .portrait-image:hover {
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        #controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            z-index: 1000;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        input[type="range"] {
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            border: none;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        button {
+            padding: 8px 16px;
+            background: #007acc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #005a9e;
+        }
+
+        button.active {
+            background: #28a745;
+        }
+
+        #status {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        #image-loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 18px;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div id="slideshow-container">
+        <div id="controls">
+            <div class="control-group">
+                <label>Movement Speed (pixels/frame)</label>
+                <input type="range" id="speed-slider" min="1" max="10" value="3" step="0.5">
+                <input type="number" id="speed-input" min="1" max="10" value="3" step="0.5">
+            </div>
+            
+            <div class="control-group">
+                <label>Image Spacing (pixels)</label>
+                <input type="range" id="spacing-slider" min="200" max="800" value="400" step="50">
+                <input type="number" id="spacing-input" min="200" max="800" value="400" step="50">
+            </div>
+            
+            <div class="control-group">
+                <label>Image Count</label>
+                <input type="number" id="image-count" min="1" max="20" value="5">
+                <button onclick="loadImages()">Load Images</button>
+            </div>
+            
+            <div class="control-group">
+                <button id="play-pause" onclick="togglePlayPause()">Pause</button>
+                <button onclick="resetSlideshow()">Reset</button>
+            </div>
+            
+            <div id="status">
+                Images loaded: 0 | Active images: 0
+            </div>
+        </div>
+        
+        <div id="image-loader">
+            Loading slideshow images...
+        </div>
+    </div>
+
+    <script>
+        // System Architecture: Image Flow Management Engine
+        class SlideshowEngine {
+            constructor() {
+                this.images = [];
+                this.activeImages = [];
+                this.isPlaying = true;
+                this.animationFrame = null;
+                
+                // Motion parameters - configurable for performance tuning
+                this.speed = 3;
+                this.imageSpacing = 400;
+                this.containerWidth = 1920;
+                this.containerHeight = 1080;
+                
+                // Image positioning system
+                this.nextImagePosition = -300;
+                this.lastImageTime = 0;
+                
+                this.initializeControls();
+                this.loadDefaultImages();
+            }
+            
+            // Image Asset Loading Pipeline
+            loadDefaultImages() {
+                // Simulating image loading from slideshow folder
+                // In real implementation, this would use file system APIs
+                const imageUrls = [
+                    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop&crop=face',
+                    'https://images.unsplash.com/photo-1494790108755-2616b612b832?w=300&h=400&fit=crop&crop=face',
+                    'https://images.unsplash.com/photo-1552058544-f2b08422138a?w=300&h=400&fit=crop&crop=face',
+                    'https://images.unsplash.com/photo-1463453091185-61582044d556?w=300&h=400&fit=crop&crop=face',
+                    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=400&fit=crop&crop=face'
+                ];
+                
+                this.loadImageSet(imageUrls);
+            }
+            
+            // Dynamic Image Loading System
+            async loadImageSet(urls) {
+                const loadPromises = urls.map(url => this.preloadImage(url));
+                
+                try {
+                    this.images = await Promise.all(loadPromises);
+                    this.updateStatus();
+                    this.startAnimation();
+                    document.getElementById('image-loader').style.display = 'none';
+                } catch (error) {
+                    console.error('Image loading pipeline failure:', error);
+                }
+            }
+            
+            // Image Preloading with Error Handling
+            preloadImage(src) {
+                return new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.onload = () => resolve(src);
+                    img.onerror = () => reject(new Error(`Failed to load: ${src}`));
+                    img.src = src;
+                });
+            }
+            
+            // Animation Rendering Engine
+            startAnimation() {
+                if (this.animationFrame) {
+                    cancelAnimationFrame(this.animationFrame);
+                }
+                
+                this.animate();
+            }
+            
+            // Core Animation Loop with Performance Optimization
+            animate() {
+                if (!this.isPlaying) return;
+                
+                const currentTime = performance.now();
+                
+                // Image Spawning Logic
+                if (this.shouldSpawnNewImage(currentTime)) {
+                    this.spawnImage();
+                    this.lastImageTime = currentTime;
+                }
+                
+                // Image Movement and Lifecycle Management
+                this.updateImagePositions();
+                this.cleanupOffscreenImages();
+                
+                this.animationFrame = requestAnimationFrame(() => this.animate());
+            }
+            
+            // Image Spawning Decision Engine
+            shouldSpawnNewImage(currentTime) {
+                if (this.images.length === 0) return false;
+                
+                const timeSinceLastImage = currentTime - this.lastImageTime;
+                const spawnInterval = (this.imageSpacing / this.speed) * 16.67; // Convert to milliseconds
+                
+                return timeSinceLastImage >= spawnInterval;
+            }
+            
+            // Image Instance Creation and DOM Injection
+            spawnImage() {
+                const imageUrl = this.images[Math.floor(Math.random() * this.images.length)];
+                const imgElement = document.createElement('img');
+                
+                imgElement.src = imageUrl;
+                imgElement.className = 'portrait-image';
+                imgElement.style.left = this.nextImagePosition + 'px';
+                
+                // Vertical positioning with slight randomization
+                const verticalOffset = (Math.random() - 0.5) * 200;
+                imgElement.style.top = `calc(50% + ${verticalOffset}px)`;
+                
+                document.getElementById('slideshow-container').appendChild(imgElement);
+                
+                this.activeImages.push({
+                    element: imgElement,
+                    x: this.nextImagePosition
+                });
+                
+                this.updateStatus();
+            }
+            
+            // Position Update System with Smooth Interpolation
+            updateImagePositions() {
+                this.activeImages.forEach(imageObj => {
+                    imageObj.x += this.speed;
+                    imageObj.element.style.left = imageObj.x + 'px';
+                });
+            }
+            
+            // Memory Management - Offscreen Image Cleanup
+            cleanupOffscreenImages() {
+                this.activeImages = this.activeImages.filter(imageObj => {
+                    if (imageObj.x > this.containerWidth + 100) {
+                        imageObj.element.remove();
+                        return false;
+                    }
+                    return true;
+                });
+            }
+            
+            // Control System Interface
+            initializeControls() {
+                // Speed control synchronization
+                const speedSlider = document.getElementById('speed-slider');
+                const speedInput = document.getElementById('speed-input');
+                
+                speedSlider.addEventListener('input', (e) => {
+                    this.speed = parseFloat(e.target.value);
+                    speedInput.value = this.speed;
+                });
+                
+                speedInput.addEventListener('input', (e) => {
+                    this.speed = parseFloat(e.target.value);
+                    speedSlider.value = this.speed;
+                });
+                
+                // Spacing control synchronization
+                const spacingSlider = document.getElementById('spacing-slider');
+                const spacingInput = document.getElementById('spacing-input');
+                
+                spacingSlider.addEventListener('input', (e) => {
+                    this.imageSpacing = parseInt(e.target.value);
+                    spacingInput.value = this.imageSpacing;
+                });
+                
+                spacingInput.addEventListener('input', (e) => {
+                    this.imageSpacing = parseInt(e.target.value);
+                    spacingSlider.value = this.imageSpacing;
+                });
+            }
+            
+            // Playback State Management
+            togglePlayback() {
+                this.isPlaying = !this.isPlaying;
+                const button = document.getElementById('play-pause');
+                
+                if (this.isPlaying) {
+                    button.textContent = 'Pause';
+                    button.classList.remove('active');
+                    this.startAnimation();
+                } else {
+                    button.textContent = 'Play';
+                    button.classList.add('active');
+                    if (this.animationFrame) {
+                        cancelAnimationFrame(this.animationFrame);
+                    }
+                }
+            }
+            
+            // System Reset and State Cleanup
+            reset() {
+                this.activeImages.forEach(imageObj => {
+                    imageObj.element.remove();
+                });
+                this.activeImages = [];
+                this.lastImageTime = 0;
+                this.updateStatus();
+            }
+            
+            // Status Monitoring Interface
+            updateStatus() {
+                const status = document.getElementById('status');
+                status.textContent = `Images loaded: ${this.images.length} | Active images: ${this.activeImages.length}`;
+            }
+        }
+        
+        // System Initialization
+        let slideshowEngine;
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            slideshowEngine = new SlideshowEngine();
+        });
+        
+        // Global Control Functions
+        function togglePlayPause() {
+            if (slideshowEngine) {
+                slideshowEngine.togglePlayback();
+            }
+        }
+        
+        function resetSlideshow() {
+            if (slideshowEngine) {
+                slideshowEngine.reset();
+            }
+        }
+        
+        function loadImages() {
+            const count = parseInt(document.getElementById('image-count').value);
+            
+            // Simulate loading different image sets based on count
+            const baseUrls = [
+                'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop&crop=face',
+                'https://images.unsplash.com/photo-1494790108755-2616b612b832?w=300&h=400&fit=crop&crop=face',
+                'https://images.unsplash.com/photo-1552058544-f2b08422138a?w=300&h=400&fit=crop&crop=face',
+                'https://images.unsplash.com/photo-1463453091185-61582044d556?w=300&h=400&fit=crop&crop=face',
+                'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=400&fit=crop&crop=face',
+                'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=400&fit=crop&crop=face',
+                'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=300&h=400&fit=crop&crop=face',
+                'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=400&fit=crop&crop=face'
+            ];
+            
+            const selectedUrls = baseUrls.slice(0, Math.min(count, baseUrls.length));
+            
+            if (slideshowEngine) {
+                slideshowEngine.reset();
+                slideshowEngine.loadImageSet(selectedUrls);
+            }
+        }
+    </script>
+</body>
+</html>

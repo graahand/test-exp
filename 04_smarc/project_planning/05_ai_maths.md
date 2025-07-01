@@ -122,4 +122,48 @@ The "K" refers to a quantization strategy that groups or clusters model weights 
 
 *The "K" quantization uses different bit-width representations (e.g., 4-bit, 5-bit, 6-bit)*
 
+**ollama run hf.com/modelprovider/modelname**
+
+############################################################################################################################################
+
+## ollama, [llama.cpp](https://github.com/ggml-org/llama.cpp) and gguf for efficient inference and deployment 
+
+ollama provides the way to infer and finetune numerous large language models with different modalities like llama3, moondream2 and so on. Additionally, it also allow running the models from huggingface allowing the flexibility of testing different models with consumer grade hardware (without cpu as well). But ollama is not preferred solution for deployment purpose as the concurrency directly affect the throughput from the ollama. 
+    ollama run hf.com/model_provider/model_name-gguf
+
+yes, ollama can be used for experimentation, llama.cpp can handle much more concurrent user requests along with running quantized models efficiently. llama.cpp is the way to run the large language models and deployment of those models on edge devices and the servers with cpus.
+    llama-cli -hf modelprovide/modelname-gguf
+
+## vllm (llm serving engine)
+
+used for fast llm inference and serving. provides sota serving throughput (means how the model server can process the inference requests) 
+
+**(pagedattention)**, allow quantization (gptq, int4, int8 and awq),OpenAI-compatible API server
+
+        pip install vllm --extra-index-url https://download.pytorch.org/whl/cu128
+        
+        vllm serve DevQuasar/Qwen.Qwen2.5-VL-3B-Instruct-GGUF --port 8000 --host 0.0.0.0
+        
+*vLLM not supporting loading GGUF models directly from a remote Hugging Face repository*
+
+
+        huggingface-cli download Qwen/Qwen2.5-7B-Instruct-GGUF --include "*.gguf" --local-dir ./Qwen.Qwen2.5-VL-3B-Instruct-GGUF --local-dir-use-symlinks False
+
+        huggingface-cli download Qwen/Qwen2.5-7B-Instruct-GGUF qwen2.5-7b-instruct-q3_k_m.gguf --local-dir ./Qwen.Qwen2.5-VL-3B-Instruct-GGUFhuggingface-cli download Qwen/Qwen2.5-7B-Instruct-GGUF qwen2.5-7b-instruct-q3_k_m.gguf --local-dir ./Qwen.Qwen2.5-VL-3B-Instruct-GGUF
+
+        vllm serve ./Qwen.Qwen2.5-VL-3B-Instruct-GGUF/qwen2.5-7b-instruct-q3_k_m.gguf --port 8000 --host 0.0.0.0
+
+
+
+### openai-compatible api server
+
+This server implements an API compatible with OpenAI's API, allowing clients designed for OpenAI models to interact seamlessly with this local model instead.
+
+**exposes an OpenAI-like API endpoint**
+
+but qwen family is incompatible. 
+
+
+
+
 
