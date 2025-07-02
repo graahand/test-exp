@@ -81,3 +81,86 @@ project plan (^^)
 role an responsibility (x)
 references (x)
 ############################
+
+
+
+#####################################################################################
+
+
+a web application that list out all the parks in sydney, list out the infrastructures (benchs, washroom), user registration and login, user should be able to see nearby parks around them along with google maps attached for location. 
+
+it allow discovering and searching along with reviewing the different parks from sydney area. users will be able to search and browse parks by name or location, view each part's details and amenities, and see a map showing the park's locaito. 
+it will integrate Google Maps (or similar) so users can see parks nearby and get directions from their current location
+In short, the app aims to become a one-stop guide to Sydney’s park network, addressing diverse needs (families, dog owners, exercise groups, etc.) by aggregating park data in a user-friendly interface
+
+
+
+
+
+list of parks: Alexandria Park
+
+    Angophora Reserve, Arthur McElhone Reserve, Auburn Botanic Gardens, Australian Botanic Garden Mount Annan, Badangi Reserve, Balfour Street Park, Ballast Point, Balls Head Reserve, Barangaroo Reserve, Beare Park, Bede Spillane Gardens, Belmore Park, Ben Buckler Gun Battery, Bents Basin State Conservation Area, Berowra Valley Regional Park, Berry Island Reserve, Bicentennial Park, Brickpit Ring Walk, Louise Sauvage Pathway, Bicentennial Square, Birchgrove Park, Botany Bay National Park, Bradley’s Head, Brenan Park, Brightmore Reserve, Burwood Park, Carss Cottage, Centenary Park, Centennial Parklands, Centennial Park, Moore Park, Queens Park, Central Gardens Nature Reserve, Chinese Garden of Friendship
+
+
+## standard attributes of parks
+
+1. public toilets?
+2. seating (desk, bench)?
+3. cafe (eating)?
+4. lights for night?
+5. accesibility (students, anyone with disability (mental and physical),)??
+6. transport (ease of reach)?
+7. special monuments?
+8. Dog zone?
+9. on-site parking?
+10. entry fee?
+
+
+above attributes needs to be shown for around 100 parks at least??
+
+then another feature for this mobile application is
+
+google map integration for each parks, where users can access the location of the park from their location which requires location permission from user.
+
+searching through different parks on the basis of above mentioned criteria.
+
+user login/registration is compulsory.
+
+admin panel is not required just basic information flow. 
+
+there are 4 members in the group 
+## requirements from university (minimum standard for the project proposal)
+
+
+For this group assessment you will form a group of 3 or 4 students. You will be required to develop a proposal on the project that is structured to allow for the successful achievement of both the goals and those of the industry organisation keeping in mind both the ethics and sustainability issues within the available hours of the project. 
+
+must contain things:
+
+    1. project description (paragraph)
+    2. scope  should be in paragraphs (what will the application does, what features are you adding?, data collection procedure, how will you complete your project as  real world application) ()
+    3. problem statement (what problem are you solving, simple) (paragraph)
+    4. what is lacking? gaps? can be added with problme statement. [literature review, paragraphs]
+    5. aims and objectives (one aim, 5 objectives in direct points)
+    6. project plan (complete planning from inception (week 4) to completion (week-12) of the project, includes (project backlog and sprint plan and contingency plan (contigency plan should be in points what problem will be dealt how? )), gantt chart as well for timeline, explanation of the methodology (agile), required description about methodology, trello for backlog trakcking, github for version control, google meet for regular meeting related to projects, gantt chart for project timelines and milestones for transparency. 
+    7. roles and responsiblity of each members and contribution plan (project management,documentation, backend development, frontend development, testing). along with meetings arrangement, communication strategies and accountability with each group members.
+    8. References (at least 10-15,apa referencing, should be given as [1] [2]) and listing the links below in apa format like this 1. link , 2. link , 3. link     
+    8. 3500 words limit. 
+    9. 12 font size, double spacing (2.0) for feedback, 
+    10. turnitin check (ai and originality??)
+
+
+features priorities in order
+    details about the parks above mentioned, park listings and details, map and location integration, search and filters, user authentication, responsive and simple in UI but with very useful and essential features.
+
+
+
+#############################
+project description (x)         
+scope (x)                       
+problem statement (x)
+literature review (^)
+aims and objectives (x)
+project plan (^^)
+role an responsibility (x)
+references (x)
+############################
