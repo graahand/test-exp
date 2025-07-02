@@ -14,7 +14,7 @@ project ideas
 6. 
 
 
-a mobile app that list out all the parks in sydney, list out the infrastructures (benchs, washroom), user registration and login, user should be able to see nearby parks around them along with google maps attached for location. 
+a mobile app or website that list out all the parks in sydney, list out the infrastructures (benchs, washroom), user registration and login, user should be able to see nearby parks around them along with google maps attached for location. 
 
 
 list of parks: Alexandria Park
@@ -42,10 +42,13 @@ then another feature for this mobile application is
 
 google map integration for each parks, where users can access the location of the park from their location which requires location permission from user.
 
+searching through different parks on the basis of above mentioned criteria.
+
 user login/registration is compulsory.
 
 admin panel is not required just basic information flow. 
 
+there are 4 members in the group 
 ## requirements from university (minimum standard for the project proposal)
 
 
