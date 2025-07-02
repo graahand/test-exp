@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-Dynamic Portrait Slideshow Application
+Dynamic Portrait Slideshow Application with Image Standardization
 Continuously loops portrait images from left to right with smooth transitions
-Features real-time folder synchronization and configurable animation parameters
+Features real-time folder synchronization, configurable animation parameters,
+and automatic image resizing to standardized dimensions (3024x4032) with vertical orientation enforcement
 """
 
 import tkinter as tk
@@ -10,9 +11,10 @@ from tkinter import messagebox
 import os
 import time
 import threading
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk, ImageOps
 import glob
 from pathlib import Path
+import hashlib
 
 class PortraitSlideshow:
     def __init__(self):
@@ -20,13 +22,19 @@ class PortraitSlideshow:
         self.WINDOW_WIDTH = 1366
         self.WINDOW_HEIGHT = 768
         self.BACKGROUND_PATH = "/home/graahand/Documents/background_slide.jpg"
-        self.SLIDESHOW_FOLDER = "slideshow"
+        self.SLIDESHOW_FOLDER = "/home/graahand/Documents/slideshow"
+        self.PROCESSED_CACHE_FOLDER = "slideshow_cache"  # Cache for processed images
+        
+        # Image standardization parameters
+        self.TARGET_WIDTH = 3024   # Target image width (pixels)
+        self.TARGET_HEIGHT = 4032  # Target image height (pixels)
+        self.FORCE_VERTICAL = True # Enforce vertical orientation
         
         # Animation parameters
         self.ANIMATION_SPEED = 2  # pixels per frame (higher = faster movement)
         self.FRAME_DELAY = 16     # milliseconds between frames (60 FPS ≈ 16ms)
-        self.IMAGE_SPACING = 400  # pixels between consecutive images
-        self.PORTRAIT_HEIGHT = 400  # standardized portrait height
+        self.IMAGE_SPACING = 190  # pixels between consecutive images
+        self.PORTRAIT_HEIGHT = 400  # standardized portrait height for display
         self.VERTICAL_OFFSET = 100  # pixels below center (1-2cm equivalent)
         
         # Folder monitoring parameters
@@ -38,18 +46,25 @@ class PortraitSlideshow:
         self.background_image = None
         self.image_objects = []
         self.image_paths = []
+        self.processed_images_cache = {}  # Cache for processed PIL Images
         self.animation_running = False
         self.folder_monitor_thread = None
         self.stop_monitoring = False
         
+        self.setup_directories()
         self.setup_window()
         self.load_background()
         self.initialize_slideshow()
         
+    def setup_directories(self):
+        """Create necessary directories for slideshow and cache"""
+        os.makedirs(self.SLIDESHOW_FOLDER, exist_ok=True)
+        os.makedirs(self.PROCESSED_CACHE_FOLDER, exist_ok=True)
+        
     def setup_window(self):
         """Initialize the main window with specified dimensions and properties"""
         self.root = tk.Tk()
-        self.root.title("Dynamic Portrait Slideshow")
+        self.root.title("Dynamic Portrait Slideshow - Enhanced")
         self.root.geometry(f"{self.WINDOW_WIDTH}x{self.WINDOW_HEIGHT}")
         self.root.resizable(False, False)
         
@@ -89,6 +104,145 @@ class PortraitSlideshow:
             print(f"Error loading background: {e}")
             self.canvas.configure(bg='#2c3e50')
             
+    def get_image_hash(self, image_path):
+        """Generate unique hash for image file based on path and modification time"""
+        try:
+            stat = os.stat(image_path)
+            hash_input = f"{image_path}_{stat.st_mtime}_{stat.st_size}"
+            return hashlib.md5(hash_input.encode()).hexdigest()
+        except Exception:
+            return None
+            
+    def get_cached_image_path(self, image_hash):
+        """Get path for cached processed image"""
+        return os.path.join(self.PROCESSED_CACHE_FOLDER, f"{image_hash}.jpg")
+        
+    def is_image_vertical(self, image):
+        """Check if image has vertical orientation (height > width)"""
+        width, height = image.size
+        return height > width
+        
+    def enforce_vertical_orientation(self, image):
+        """Rotate image to ensure vertical orientation if needed"""
+        if not self.is_image_vertical(image):
+            print("  Converting horizontal image to vertical orientation")
+            # Rotate 90 degrees counter-clockwise to make it vertical
+            image = image.rotate(90, expand=True)
+        return image
+        
+    def resize_image_to_target(self, image):
+        """
+        Resize image to exact target dimensions (3024x4032) using intelligent scaling
+        
+        Algorithm:
+        1. Calculate aspect ratios for source and target
+        2. Determine optimal scaling method (crop vs pad)
+        3. Apply high-quality resampling with LANCZOS filter
+        4. Center the result within target dimensions
+        """
+        source_width, source_height = image.size
+        target_width, target_height = self.TARGET_WIDTH, self.TARGET_HEIGHT
+        
+        # Calculate aspect ratios
+        source_aspect = source_width / source_height
+        target_aspect = target_width / target_height
+        
+        print(f"  Source: {source_width}x{source_height} (aspect: {source_aspect:.3f})")
+        print(f"  Target: {target_width}x{target_height} (aspect: {target_aspect:.3f})")
+        
+        if source_aspect > target_aspect:
+            # Source is wider relative to height - fit by height and crop width
+            scale_factor = target_height / source_height
+            new_width = int(source_width * scale_factor)
+            new_height = target_height
+            
+            # Resize with high-quality resampling
+            resized = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
+            
+            # Center crop to target width
+            left = (new_width - target_width) // 2
+            right = left + target_width
+            final_image = resized.crop((left, 0, right, target_height))
+            
+            print(f"  Applied height-fit scaling (factor: {scale_factor:.3f}) with center crop")
+            
+        else:
+            # Source is taller relative to width - fit by width and crop height
+            scale_factor = target_width / source_width
+            new_width = target_width
+            new_height = int(source_height * scale_factor)
+            
+            # Resize with high-quality resampling
+            resized = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
+            
+            # Center crop to target height
+            top = (new_height - target_height) // 2
+            bottom = top + target_height
+            final_image = resized.crop((0, top, target_width, bottom))
+            
+            print(f"  Applied width-fit scaling (factor: {scale_factor:.3f}) with center crop")
+        
+        return final_image
+        
+    def process_image_to_standard(self, image_path):
+        """
+        Process image to standardized format: 3024x4032 vertical orientation
+        
+        Processing pipeline:
+        1. Load original image with EXIF orientation correction
+        2. Enforce vertical orientation (rotate if needed)
+        3. Resize to exact target dimensions using intelligent scaling
+        4. Cache processed result for performance optimization
+        """
+        print(f"Processing image: {os.path.basename(image_path)}")
+        
+        try:
+            # Generate cache hash for this image
+            image_hash = self.get_image_hash(image_path)
+            if not image_hash:
+                raise Exception("Could not generate image hash")
+                
+            cached_path = self.get_cached_image_path(image_hash)
+            
+            # Check if processed version exists in cache
+            if os.path.exists(cached_path):
+                print("  Loading from cache")
+                return Image.open(cached_path)
+            
+            # Load original image with EXIF orientation correction
+            print("  Loading and processing original image")
+            original_image = Image.open(image_path)
+            
+            # Apply EXIF orientation correction
+            corrected_image = ImageOps.exif_transpose(original_image)
+            
+            # Enforce vertical orientation if required
+            if self.FORCE_VERTICAL:
+                corrected_image = self.enforce_vertical_orientation(corrected_image)
+            
+            # Resize to target dimensions
+            processed_image = self.resize_image_to_target(corrected_image)
+            
+            # Verify final dimensions
+            final_width, final_height = processed_image.size
+            if final_width != self.TARGET_WIDTH or final_height != self.TARGET_HEIGHT:
+                raise Exception(f"Failed to achieve target dimensions: got {final_width}x{final_height}")
+            
+            print(f"  Successfully processed to {final_width}x{final_height}")
+            
+            # Cache the processed image
+            try:
+                processed_image.save(cached_path, "JPEG", quality=95, optimize=True)
+                print("  Cached processed image")
+            except Exception as cache_error:
+                print(f"  Warning: Could not cache image: {cache_error}")
+            
+            return processed_image
+            
+        except Exception as e:
+            print(f"  Error processing image {image_path}: {e}")
+            return None
+            
     def scan_slideshow_folder(self):
         """Scan the slideshow folder and return list of valid image paths"""
         if not os.path.exists(self.SLIDESHOW_FOLDER):
@@ -114,21 +268,41 @@ class PortraitSlideshow:
         return sorted(list(image_files_set))
         
     def load_portrait_image(self, image_path):
-        """Load and resize a portrait image maintaining aspect ratio"""
+        """
+        Load and prepare portrait image for display
+        
+        Process:
+        1. Check memory cache for processed image
+        2. If not cached, process image to standard format
+        3. Resize processed image for display (maintaining aspect ratio)
+        4. Convert to Tkinter-compatible PhotoImage
+        """
         try:
-            image = Image.open(image_path)
+            # Check if we have this image cached in memory
+            if image_path in self.processed_images_cache:
+                processed_image = self.processed_images_cache[image_path]
+            else:
+                # Process image to standard format
+                processed_image = self.process_image_to_standard(image_path)
+                if processed_image is None:
+                    return None
+                    
+                # Cache in memory for faster subsequent access
+                self.processed_images_cache[image_path] = processed_image
             
-            # Calculate dimensions maintaining aspect ratio
-            original_width, original_height = image.size
-            aspect_ratio = original_width / original_height
+            # Resize processed image for display
+            # The processed image is already standardized to 3024x4032
+            display_aspect_ratio = processed_image.width / processed_image.height
+            display_width = int(self.PORTRAIT_HEIGHT * display_aspect_ratio)
+            display_height = self.PORTRAIT_HEIGHT
             
-            # Resize based on target height
-            new_width = int(self.PORTRAIT_HEIGHT * aspect_ratio)
-            new_height = self.PORTRAIT_HEIGHT
+            # Resize with high-quality resampling for display
+            display_image = processed_image.resize(
+                (display_width, display_height), 
+                Image.Resampling.LANCZOS
+            )
             
-            # Resize image with high-quality resampling
-            resized_image = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
-            return ImageTk.PhotoImage(resized_image)
+            return ImageTk.PhotoImage(display_image)
             
         except Exception as e:
             print(f"Error loading image {image_path}: {e}")
@@ -142,7 +316,18 @@ class PortraitSlideshow:
             messagebox.showwarning("No Images", f"No images found in '{self.SLIDESHOW_FOLDER}' folder")
             return
             
-        print(f"Loaded {len(self.image_paths)} images from slideshow folder")
+        print(f"Found {len(self.image_paths)} images in slideshow folder")
+        print("Pre-processing images to standard format...")
+        
+        # Pre-process all images to build cache
+        processed_count = 0
+        for image_path in self.image_paths:
+            processed_image = self.process_image_to_standard(image_path)
+            if processed_image is not None:
+                self.processed_images_cache[image_path] = processed_image
+                processed_count += 1
+                
+        print(f"Successfully processed {processed_count}/{len(self.image_paths)} images")
         
         # Start folder monitoring in separate thread
         self.start_folder_monitoring()
@@ -165,7 +350,22 @@ class PortraitSlideshow:
                 # Check if folder contents changed
                 if current_images != self.image_paths:
                     print(f"Folder change detected: {len(current_images)} images")
+                    
+                    # Clear cache for removed images
+                    removed_images = set(self.image_paths) - set(current_images)
+                    for removed_image in removed_images:
+                        if removed_image in self.processed_images_cache:
+                            del self.processed_images_cache[removed_image]
+                    
+                    # Update image list
                     self.image_paths = current_images
+                    
+                    # Pre-process new images
+                    new_images = set(current_images) - set(self.processed_images_cache.keys())
+                    for new_image in new_images:
+                        processed_image = self.process_image_to_standard(new_image)
+                        if processed_image is not None:
+                            self.processed_images_cache[new_image] = processed_image
                     
                 time.sleep(self.FOLDER_CHECK_INTERVAL)
                 
@@ -221,7 +421,7 @@ class PortraitSlideshow:
         image_path = self.image_paths[self.current_image_index]
         self.current_image_index = (self.current_image_index + 1) % len(self.image_paths)
         
-        # Load image
+        # Load image (already processed to standard format)
         photo_image = self.load_portrait_image(image_path)
         if photo_image is None:
             return
@@ -274,6 +474,9 @@ class PortraitSlideshow:
         self.animation_running = False
         self.stop_monitoring = True
         
+        # Clear image caches
+        self.processed_images_cache.clear()
+        
         # Wait for monitoring thread to finish
         if self.folder_monitor_thread and self.folder_monitor_thread.is_alive():
             self.folder_monitor_thread.join(timeout=1.0)
@@ -283,12 +486,15 @@ class PortraitSlideshow:
     def run(self):
         """Start the application main loop"""
         try:
-            print("Starting Dynamic Portrait Slideshow...")
+            print("Starting Enhanced Dynamic Portrait Slideshow...")
             print(f"Window Resolution: {self.WINDOW_WIDTH}x{self.WINDOW_HEIGHT}")
+            print(f"Target Image Dimensions: {self.TARGET_WIDTH}x{self.TARGET_HEIGHT}")
+            print(f"Vertical Orientation Enforcement: {self.FORCE_VERTICAL}")
             print(f"Animation Speed: {self.ANIMATION_SPEED} pixels/frame")
             print(f"Frame Rate: {1000//self.FRAME_DELAY} FPS")
             print(f"Image Spacing: {self.IMAGE_SPACING} pixels")
             print(f"Slideshow Folder: {os.path.abspath(self.SLIDESHOW_FOLDER)}")
+            print(f"Cache Folder: {os.path.abspath(self.PROCESSED_CACHE_FOLDER)}")
             print("Press Ctrl+C or close window to exit")
             
             self.root.mainloop()
@@ -303,9 +509,6 @@ class PortraitSlideshow:
 def main():
     """Main entry point"""
     try:
-        # Create slideshow folder if it doesn't exist
-        os.makedirs("slideshow", exist_ok=True)
-        
         # Initialize and run application
         app = PortraitSlideshow()
         app.run()

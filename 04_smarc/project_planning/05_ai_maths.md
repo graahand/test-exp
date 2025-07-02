@@ -153,15 +153,69 @@ used for fast llm inference and serving. provides sota serving throughput (means
 
         vllm serve ./Qwen.Qwen2.5-VL-3B-Instruct-GGUF/qwen2.5-7b-instruct-q3_k_m.gguf --port 8000 --host 0.0.0.0
 
+## openllm and sglang
+
+[openllm](https://github.com/bentoml/OpenLLM)
+
+[philosophy of openllm](https://www.bentoml.com/blog/from-ollama-to-openllm-running-llms-in-the-cloud) {must read}
+
+
+openllm allow running the open-weights models as openai-compatible api endpoints with single command.
+(also a chatui)
+ 
+ openllm's python client is used for sending the requests and receiving  the raw response from the model. (its like a ollama but for cloud deployment)
+
+OpenLLM’s current primary focus is on GPU-based inference, and it does not actively support CPU-only inference out of the box yet. 
+
+    pip install openllm
+    openllm hello
+    openllm serve modelname 
+ 
+
+[sgland](https://github.com/sgl-project/sglang)
+
+sglang is a fast serving framework for llm and vlms. 
+
+#### attributes of sglang
+
+1. *radixattention for prefix caching*: caching the previously generated outputs
+2. *zero-overhead cpu scheduler*: cpu inference support. 
+3. *speculative decoding*: predicts possible new words ahead of time for response generation. 
+4. *continuos batching*: group multiple requests together
+5. *paged attention*: 
 
 
 ### openai-compatible api server
+
+
+*An API that accepts and returns requests/responses in OpenAI’s JSON format*
+
+
 
 This server implements an API compatible with OpenAI's API, allowing clients designed for OpenAI models to interact seamlessly with this local model instead.
 
 **exposes an OpenAI-like API endpoint**
 
 but qwen family is incompatible. 
+
+
+### open-source model and local deployment
+
+there are two options for using the large language models like qwen, llama, other any openai models in our application. first one is using using their hosted api endpoints (cloud based services) (paying for per/million tokens, the model is hostel in their own cloud) and second one is running the model locally in the server and use your own local api endpoint (http://localhost:2000) to serve the application with that model which can be done with the tools like llama.cpp, vllm, openllm and sglang. (provides full control over data, no api usage fee, scaling issue with limited hardware, slower inference speed depending on the infrastructure)
+
+qwen allow commercial use. 
+
+When running locally, you do not need an API key for your own server, but you need to set up your own API interface if you want to serve multiple users or integrate with other applications
+
+    [vllm serve (from the vLLM project) — which starts a server exposing an OpenAI-compatible API endpoint on your local machine or server.
+
+    llama-server (from llama.cpp) — which similarly runs a local HTTP server to serve model inference requests.
+
+    Likewise, SGLang provides a runtime and server you can launch to serve models with an OpenAI-compatible API.]
+
+
+
+
 
 
 
