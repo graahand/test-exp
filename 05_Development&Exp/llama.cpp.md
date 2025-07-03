@@ -12,7 +12,7 @@
     brew install llama.cpp
 
 
-what is the difference between *# Load and run the model:
+what is the difference between:
 *llama-server -hf bartowski/Qwen2.5-Math-7B-Instruct-GGUF:Q6_K_L* and 
 *llama-cli -hf bartowski/Qwen2.5-Math-7B-Instruct-GGUF:Q6_K_L* ?
 

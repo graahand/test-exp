@@ -61,5 +61,27 @@ without finetuning and careful prompting, text extraction can be done, font clas
 segmentation of any use? for blur detection?? 
 
 
+## Information to be extracted from the shared CQIS folder
+
+1. primary and secondary fonts/typeface of each ing college.
+2. Logo placement guide for A4, A3, A5,digital collaterals (margins), color theme and do/don't regarding the logo (text color, background color) 
+3. story guide (consult to niraj dai , what does story means? is it social media story? if yes then write down the criteria in words)
+4. write down the criteria for standees (every ING colleges) like margin and logo placement and any other essential details. 
+
+
+5. Dataset format for vision language model: 
+    a. design template/image
+    b. which typeface used (primary and secondary)
+    c. what text is written in the image and is it correct (typos/grammar)? any text overflow or weird line breaks inside the designs. 
+    d. any distorted, pixelated or unnecessarily/mistakenly blurred region in the image
+    e. logo placement and margin for A4, A3, A5, digital collaterals, social media cover pages and standee (30x72)
+    f. color guidelines (logos, background, text color)
+
+inclusion of positive cases and negative cases in dataset and requires minimal human intervention.
+
+
+
+
+
 
 
