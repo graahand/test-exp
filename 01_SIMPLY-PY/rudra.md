@@ -137,10 +137,13 @@ For this group assessment you will form a group of 3 or 4 students. You will be 
 must contain things:
 
     1. project description (paragraph)
-    2. scope  should be in paragraphs (what will the application does, what features are you adding?, data collection procedure, how will you complete your project as  real world application) ()
+    2. scope  should be in paragraphs (what will be included and what will be excluded) (what will the application does, what features are you adding?, data collection procedure, how will you complete your project as  real world application) ()
     3. problem statement (what problem are you solving, simple) (paragraph)
     4. what is lacking? gaps? can be added with problme statement. [literature review, paragraphs]
-    5. aims and objectives (one aim, 5 objectives in direct points)
+    5. project goals and objectives (one aim, 5 objectives in direct points) aims to
+    achieve and how it will solve the business problem. Use SMART goals
+    (Specific, Measurable, Achievable, Relevant, Time-bound).
+    5.1. deliverables (reports, website)
     6. project plan (complete planning from inception (week 4) to completion (week-12) of the project, includes (project backlog and sprint plan and contingency plan (contigency plan should be in points what problem will be dealt how? )), gantt chart as well for timeline, explanation of the methodology (agile), required description about methodology, trello for backlog trakcking, github for version control, google meet for regular meeting related to projects, gantt chart for project timelines and milestones for transparency. 
     7. roles and responsiblity of each members and contribution plan (project management,documentation, backend development, frontend development, testing). along with meetings arrangement, communication strategies and accountability with each group members.
     8. References (at least 10-15,apa referencing, should be given as [1] [2]) and listing the links below in apa format like this 1. link , 2. link , 3. link     
