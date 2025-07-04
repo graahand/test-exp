@@ -36,6 +36,13 @@
 
 9. [Ning Wang, SPRAI Lab, USF(BCA)](https://ning-wang1.github.io/) (she is hiring multiple phds candidates and might also accept MS supervising, her work (AI and cybersecurity,network intrusion,adversarial machine learning))
 
+10. [Flair Lab, Kuan-Hao Huang, Texas and A&M University](https://khhuang.me/blog/flair%20lab/2025/02/14/recuiting.html) *(high priority, actively hiring phd students, robust llms, multimodal concept learning and alignment and multimodal text understanding,) (email: khhuang [at] tamu [dot] edu*
+
+11. [Yi Zhou, Texas and A&M University](https://sites.google.com/site/yizhouhomepage/home?authuser=0) (hiring phd students, llms and its applications, stochastic optimization for ML, Reinforcement leanring and multi-agent systemcontrol, ML For EDA/CAD/HPC) [OPEN_POSITIONS](https://sites.google.com/site/yizhouhomepage/prospective-students?authuser=0)
+
+
+12. [Jinwei Ye, George Mason University](https://cs.gmu.edu/~jinweiye/) (actively hirigng phd students in computer vision, computational photography, computer graphics)
+
 ########################################################################
 
 # professors outside US

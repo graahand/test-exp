@@ -1,6 +1,4 @@
-Great. I’ll begin developing a complete 3500-word structured project proposal for a web application that catalogs and provides detailed information about Sydney parks, including search, filtering, user authentication, and map integration. This will cover all required sections such as project description, scope, problem statement, literature review, SMART objectives, sprint plans, contingency strategies, roles and responsibilities, and 10–15 APA references.
 
-I'll let you know when the full draft is ready.
 
 
 # Park Explorer: Web Application for Sydney’s Parks
@@ -25,7 +23,7 @@ We will **exclude** out-of-scope items such as a comprehensive admin panel or ad
 **Real-world applicability:** To simulate deployment as a practical system, we will host the app on a web server or cloud platform.  All features (maps, login, search) use production-ready tools (e.g. Google Maps API, a cloud database, and HTTPS). We will follow responsive design so the site works on various devices. Software tools include a modern web framework (such as React or Angular for front-end, Node.js/Django for back-end), GitHub for version control, Trello for agile backlog tracking, and Google Meet or Slack for team communication.
 
 ## Problem Statement
-
+in
 Sydney’s large park network offers many recreation opportunities, but **discoverability is poor**.  With 400+ parks in the City of Sydney, people must currently rely on generic map searches, word-of-mouth, or multiple websites to find parks.  There is no unified platform to search and compare parks by features (public toilets, BBQs, accessible paths, etc.), nor to see community reviews. This creates two problems: first, users (families, elderly, dog owners) may waste time visiting unsuitable parks or miss parks entirely. Second, park usage and community engagement suffer.
 
 For example, research on park usage shows that amenities and affordability strongly influence whether people visit or enjoy parks. Inaccessible or poorly-equipped parks tend to be under-used. Yet this information is hard to obtain centrally. The City of Sydney mentions the diversity of its parks, but residents often cannot easily find the nearest park with, say, a playground and restroom. An integrated park directory with search and map (like a “Park Google”) would solve this.
