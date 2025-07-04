@@ -1,6 +1,4 @@
-Great. I’ll begin developing a complete 3500-word structured project proposal for a web application that catalogs and provides detailed information about Sydney parks, including search, filtering, user authentication, and map integration. This will cover all required sections such as project description, scope, problem statement, literature review, SMART objectives, sprint plans, contingency strategies, roles and responsibilities, and 10–15 APA references.
 
-I'll let you know when the full draft is ready.
 
 
 # Park Explorer: Web Application for Sydney’s Parks
