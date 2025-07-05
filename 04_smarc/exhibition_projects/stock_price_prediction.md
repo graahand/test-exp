@@ -23,3 +23,15 @@ need to merge the dataset of all companies into single dataset where the item_id
 
 chrono-bolts models are provided by amazon and have been pre-trained with around 100 billions time-series data and very good at zero-shot prediction as well. 
 
+prophet(facebook ai research), time series forecasting [for forecasting time series data based on an additive model where non-linear trends are fit with yearly, weekly, and daily seasonality, plus holiday effects]
+    
+
+    process:
+
+    rename the timestamp as ds
+    rename the closing price as y
+
+    code:
+    
+
+    ![sanima_bank_predictjuly-6-july 10](image.png)
