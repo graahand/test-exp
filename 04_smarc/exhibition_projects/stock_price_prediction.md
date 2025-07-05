@@ -34,4 +34,12 @@ prophet(facebook ai research), time series forecasting [for forecasting time ser
     code:
     
 
-    ![sanima_bank_predictjuly-6-july 10](image.png)
+    (ai_env) (base) graahand@transformer:~/stock-price$ /home/graahand/miniconda3/envs/ai_env/bin/python /home/graahand/stock-price/train_bank.py
+    17:29:26 - cmdstanpy - INFO - Chain [1] start processing
+    17:29:26 - cmdstanpy - INFO - Chain [1] done processing
+                ds        yhat  yhat_lower  yhat_upper
+    1173 2025-07-04  330.130748  311.546719  348.559135
+    1174 2025-07-05  346.993727  328.633787  365.069220
+    1175 2025-07-06  337.967802  319.021428  357.471327
+    1176 2025-07-07  339.004586  321.843562  355.282978
+    1177 2025-07-08  341.688903  324.074562  360.082234
