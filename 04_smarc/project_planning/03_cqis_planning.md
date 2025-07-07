@@ -80,6 +80,32 @@ segmentation of any use? for blur detection??
 inclusion of positive cases and negative cases in dataset and requires minimal human intervention.
 
 
+    image_id:01,
+    image_path: img.png,
+    typeface used: roboto, (can model learn to identify?)
+    blur/pixelated_regions_present: yes (co-ordinates)/no, (can model learn)
+    text_written: islington college, congratulations graduates!!, 
+    grammar check: positive/negative,
+    logo_placement: co-ordinates() (can model extract accurately) 
+    logo_margin: 30px (can model learn?) 
+    type_of_templates:A4/A3/A5 (i don't know whether the model can learn to identify size of template), 
+    logo_color_check: positive/negative
+    logo_background_check: positive/negative
+
+
+##  can a vision language model like qwen can learn these things after finetuning? if  yes then how many positive and negative samples required, help me with the data collection and preparation.?
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
