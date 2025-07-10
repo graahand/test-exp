@@ -9,10 +9,10 @@
 email prashnna k gyawali (https://pkgyawali.com/)
 
 man and his symbols, carl jung (1119)
+[llm parameters testing](https://machinelearningmastery.com/understanding-text-generation-parameters-in-transformers/)
 
 
 
 
-976550341086
 
-98447803457
+
