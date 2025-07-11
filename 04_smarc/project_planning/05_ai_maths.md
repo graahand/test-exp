@@ -223,4 +223,41 @@ intel llm runtime
 
 
 
+# Scaling LLMs
 
+triton, vllm
+
+business case] First, since the implication seems to be that this is for a business purpose, you should establish the business case for it. What's the market, what's the size of your market, how will you present it to your market.
+
+[scalability] Second, you need to consider how many you're going to deploy. Just 'cause you can run one instance on your machine doesn't mean that you can deal with 10 people simultaneously trying to access it.
+
+[Security] Third, you need to consider security. Can malicious forces take your machine and use it for their purposes?
+
+[Liability] Fourth, what are the liability issues for the use of your product? What about the models you're using? Are there licenses that you need to comply with?re reading this post, this is to ask your very honest opinions and suggestions to help e-learning platforms to grow in Nepal.
+
+5 months back we launched an online learning platform for early-professionals - edtraa.com , which provides career-ready courses from the top mentors of your desired industry. Nepal has seen massive failures in the e-learning segment yet we took a leap to start our venture. Being very honest, we currently have exactly 509 students in our platform as we are growin
+
+
+
+Platforms like (digitalocean,runpod, lambda labs) provides raw GPU access where we need to manage our own environment whereas Azure/AWS are fully managed AI/ML services with enterprise grade features. 
+
+## GPUs
+
+V100, A100, H100. 
+
+
+
+not only a model for answering the maths questions answer rather a complete product that offers question answering, reflective analysis and report from results and progress report uploaded by the students. Self evaluation through generated test papers. 
+
+
+1. Multi-subject question answering (Nepali, social, english, maths, optional maths, science and computer science)
+2. Curriculum aligned content ensuring relevance and accuracy. 
+3. Generated question papers, past exam papers for practice covering all mentioned subjects. (how student written answers to the questions can be evaluated insted of just using mcq) 
+4. AI powered grading and performance analytics for tests and assignments. 
+5. Reflective learning reports.
+6. llms for 24/7 study support.
+7. career awareness and  guidance regarding emerging tech subjects. 
+8. 
+
+
+reflective pedagody (Gibbs Reflective Cycle)
