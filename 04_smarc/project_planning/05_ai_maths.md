@@ -261,3 +261,6 @@ not only a model for answering the maths questions answer rather a complete prod
 
 
 reflective pedagody (Gibbs Reflective Cycle)
+
+
+150 word essay on how should AI  math project (not only math but subjects including social,nepali,english,math,science and computer science, class 4 to  class 12) with MST. Mysecondteacher is based on the philosophy of advance pedagogy but they haven't yet implemented any AI related features except of the analytical reports generated after a simple MCQ based test which don't actually a actual reflection on one's understanding of the subject matter. 

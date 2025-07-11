@@ -11,10 +11,14 @@
             "id": "4b26059b51db5733",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "04_smarc/project_planning/cqis typeface detection.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "cqis typeface detection"
             }
           }
         ]
@@ -163,8 +167,9 @@
   },
   "active": "4b26059b51db5733",
   "lastOpenFiles": [
-    "04_smarc/project_planning/05_ai_maths.md",
     "04_smarc/project_planning/03_cqis_planning.md",
+    "04_smarc/project_planning/cqis typeface detection.md",
+    "04_smarc/project_planning/05_ai_maths.md",
     "04_smarc/project_planning/02_assisted_vision.md",
     "04_smarc/project_planning/01_3d_reconstruction_sdc_feasible.md",
     "01_SIMPLY-PY/reinforcement_learning.md",
